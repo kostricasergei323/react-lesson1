@@ -3,24 +3,26 @@ import '../css/NewExpense.css';
 import ExpenseForm from './ExpenseForm';
 
 const visibleStyle = {
-    visibility: "visible"
+    display: "unset"
 };
 
 const hiddenStyle = {
-    visibility: "hidden"
+    display: "none"
 };
 
 const NewExpense = () => {
     const formRef = useRef(null);
-
+    const addNewExpenseRef = useRef(null);
+    
     const AddNewExpense = (e) => {
         e.nativeEvent.preventDefault();
-        formRef.current.style = visibleStyle;
+        formRef.current.style = "display: unset";
+        addNewExpenseRef.current.style = "display: none";
     };
 
     return (
         <div className="new-expense">
-            <button className="new-expense button" onClick={AddNewExpense}>Add New Expense</button>
+            <button ref={addNewExpenseRef} style={visibleStyle} onClick={AddNewExpense}>Add New Expense</button>
             <div ref={formRef} style={hiddenStyle}>
                 <ExpenseForm/>
             </div>

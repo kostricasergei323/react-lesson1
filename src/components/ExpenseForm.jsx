@@ -13,26 +13,24 @@ const ExpenseForm = () => {
 
     return (
         <>
-            <form>
+            <form className="new-expense__control">
                 <div>
-                    <label className="new-expense__control label" >Title</label>
-                    <input type="text" className="new-expense__control input" />
+                    <label>Title</label>
+                    <input type="text"/>
                 </div>
                 <div>
-                    <label className="new-expense__control label" >Amount</label>
-                    <input type="text" className="new-expense__control input" />
+                    <label>Amount</label>
+                    <input type="text"/>
                 </div>
                 <div>
-                    <label className="new-expense__control label" >Date</label>
-                    <input type="text" className="new-expense__control input" />
+                    <label>Date</label>
+                    <input type="text"/>
                 </div>
             </form>
 
             <div className="new-expense__actions">
-                <input type="submit" className="new-expense__actions" onSubmit={cancelSubmit} value="Cancel" />
-            </div>
-            <div className="new-expense__actions">
-                <input type="submit" className="new-expense__actions" onSubmit={addSubmit} value="Add Expense" />
+                <button onClick={cancelSubmit}>Cancel</button>
+                <button onClick={addSubmit}>Add Expense</button>
             </div>
         </>
     );

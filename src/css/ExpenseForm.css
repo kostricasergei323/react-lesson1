@@ -1,6 +1,7 @@
-.new-expense__controls {
+.new-expense__control {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
   text-align: left;
@@ -19,6 +20,12 @@
   border: 1px solid #ccc;
   width: 20rem;
   max-width: 100%;
+}
+
+.new-expense__control div {
+ display: flex;
+ flex-direction: column;
+ align-items: flex-start;
 }
 
 .new-expense__actions {
