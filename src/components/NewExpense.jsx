@@ -12,7 +12,7 @@ const hiddenStyle = {
 };
 
 const NewExpense = () => {
-    let { newExpenseformRef, addNewExpenseRef } = useContext(Context);
+    const { newExpenseformRef, addNewExpenseRef } = useContext(Context);
 
     const AddNewExpense = (e) => {
         e.nativeEvent.preventDefault();

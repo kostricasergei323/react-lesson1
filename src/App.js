@@ -6,9 +6,9 @@ import { Context } from './components/context';
 const App = () => {
   const [expenses, setExpenses] = useState([]);
   const [filteredExpenses, setFilteredExpenses] = useState([]);
-  let newExpenseformRef = useRef(null);
-  let addNewExpenseRef = useRef(null);
-  let filterRef = useRef(null);
+  const newExpenseformRef = useRef(null);
+  const addNewExpenseRef = useRef(null);
+  const filterRef = useRef(null);
 
   return (
     <Context.Provider value={{
@@ -19,13 +19,13 @@ const App = () => {
       filteredExpenses: {
         filteredExpenses,
         setFilteredExpenses
-      }, 
+      },
       newExpenseformRef, addNewExpenseRef, filterRef
     }}>
-      <div>
+      <>
         <NewExpense />
         <Expenses />
-      </div>
+      </>
     </Context.Provider>
   );
 }
