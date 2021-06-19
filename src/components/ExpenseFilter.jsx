@@ -1,45 +1,50 @@
-import { useCallback, useContext, useEffect, useState } from 'react';
-import { Context } from './context';
+import { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import '../css/ExpenseFilter.css';
+import { setExpenses } from './redux/actions';
 
 const ExpenseFilter = () => {
-    const { expenses: { expenses }, filteredExpenses: { setFilteredExpenses }, filterRef } = useContext(Context);
+    const dispatch = useDispatch();
+    const { expenses: { expenses: expensesState } } = useSelector(state => state);
     const [filterOptions, setFilterOptions] = useState([{
         key: 0,
         option: '-'
     }]);
 
     const FilterExpenses = useCallback((value) => {
-        if (value === '-') {
-            setFilteredExpenses(expenses);
+        if (!!expensesState.length) {
+            if (value === '-') {
+                dispatch(setExpenses(expensesState))
+            }
+            else dispatch(setExpenses(expensesState.filter(exp => parseInt(exp.Date.split('-')[2]) === parseInt(value))));
         }
-        else setFilteredExpenses(expenses.filter(exp => parseInt(exp.Date.split('-')[2]) === parseInt(value)));
-    }, [expenses, setFilteredExpenses]);
+    }, [expensesState, dispatch]);
 
     useEffect(() => {
         let i = 0;
+
         setFilterOptions([
             {
                 key: 0,
                 option: '-'
             },
-            ...expenses.map((exp) => {
+            ...[...new Set(expensesState.map(exp => parseInt(exp.Date.split('-')[2])))].map((date) => {
                 return {
                     key: ++i,
-                    option: parseInt(exp.Date.split('-')[2])
+                    option: date
                 };
             }).sort((a, b) => a.option - b.option)])
-    }, [expenses, setFilterOptions]);
+    }, [expensesState, setFilterOptions]);
 
     useEffect(() => {
-        FilterExpenses(filterRef.current.value);
-    }, [filterOptions, filterRef, FilterExpenses]);
+        FilterExpenses(document.getElementsByClassName("expenses-filter__control")[0].children[1].value);
+    }, [filterOptions, FilterExpenses]);
 
     return (
         <div className="expenses-filter">
             <div className="expenses-filter__control">
                 <label>Filter by year</label>
-                <select ref={filterRef} defaultValue='-' onChange={(e) => FilterExpenses(e.target.value)}>
+                <select defaultValue='-' onChange={(e) => FilterExpenses(e.target.value)}>
                     {filterOptions.map(option => <option key={option.key}>{option.option}</option>)}
                 </select>
             </div>

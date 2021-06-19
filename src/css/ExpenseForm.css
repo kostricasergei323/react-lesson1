@@ -13,13 +13,20 @@
   display: block;
 }
 
-.new-expense__control input {
+.new-expense__control input[type="text"] {
   font: inherit;
   padding: 0.5rem;
   border-radius: 6px;
   border: 1px solid #ccc;
   width: 20rem;
   max-width: 100%;
+}
+
+.new-expense__control input[type="image"] {
+  font: inherit;
+  margin-left: -8%;
+  margin-bottom: -2%;
+  width: 7%;
 }
 
 .new-expense__control div {

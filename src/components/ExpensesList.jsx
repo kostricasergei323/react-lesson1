@@ -1,14 +1,9 @@
+import { useSelector } from 'react-redux';
 import '../css/ExpensesList.css';
 import ExpenseItem from './ExpenseItem';
-import { Context } from './context';
-import { useContext, useEffect } from 'react';
 
 const ExpensesList = () => {
-    const { expenses: { expenses }, filteredExpenses: { filteredExpenses, setFilteredExpenses } } = useContext(Context);
-
-    useEffect(() => {
-        setFilteredExpenses(expenses);
-    }, [expenses, setFilteredExpenses]);
+    const filteredExpenses = useSelector(state => state.expenses.filteredExpenses);
 
     return (
         <div className="expenses-list">

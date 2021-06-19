@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
-import ExpenseForm from './ExpenseForm';
-import { Context } from './context';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import '../css/NewExpense.css';
+import ExpenseForm from './ExpenseForm';
+import { SHOW_ADD_EXPENSE_FORM } from './redux/types';
 
 const visibleStyle = {
     display: "unset"
@@ -12,18 +13,20 @@ const hiddenStyle = {
 };
 
 const NewExpense = () => {
-    const { newExpenseformRef, addNewExpenseRef } = useContext(Context);
+    const dispatch = useDispatch();
+    const { showAddNewExpense } = useSelector(state => state.showAddNewExpense);
 
     const AddNewExpense = (e) => {
-        e.nativeEvent.preventDefault();
-        addNewExpenseRef.current.style = "display: none";
-        newExpenseformRef.current.style = "display: unset";
+        e.preventDefault();
+        dispatch({
+            type: SHOW_ADD_EXPENSE_FORM
+        });
     };
 
     return (
         <div className="new-expense">
-            <button ref={addNewExpenseRef} style={visibleStyle} onClick={AddNewExpense}>Add New Expense</button>
-            <div ref={newExpenseformRef} style={hiddenStyle}>
+            <button style={!showAddNewExpense ? visibleStyle : hiddenStyle} onClick={AddNewExpense}>Add New Expense</button>
+            <div style={!!showAddNewExpense ? visibleStyle : hiddenStyle}>
                 <ExpenseForm />
             </div>
         </div>);

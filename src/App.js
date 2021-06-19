@@ -1,32 +1,20 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
+import { compose, createStore } from 'redux';
+import { Provider } from 'react-redux';
 import Expenses from './components/Expenses';
 import NewExpense from './components/NewExpense';
-import { Context } from './components/context';
+import { rootReducer } from './components/redux/rootReducer';
+
+const store = createStore(rootReducer, compose(window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 
 const App = () => {
-  const [expenses, setExpenses] = useState([]);
-  const [filteredExpenses, setFilteredExpenses] = useState([]);
-  const newExpenseformRef = useRef(null);
-  const addNewExpenseRef = useRef(null);
-  const filterRef = useRef(null);
-
   return (
-    <Context.Provider value={{
-      expenses: {
-        expenses,
-        setExpenses
-      },
-      filteredExpenses: {
-        filteredExpenses,
-        setFilteredExpenses
-      },
-      newExpenseformRef, addNewExpenseRef, filterRef
-    }}>
+    <Provider store={store}>
       <>
         <NewExpense />
         <Expenses />
       </>
-    </Context.Provider>
+    </Provider>
   );
 }
 
