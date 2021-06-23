@@ -30,7 +30,9 @@ const ExpenseForm = () => {
 
     const fillCurrentDate = (e) => {
         e.preventDefault();
-        e.target.parentNode.firstChild.value = new Date().toLocaleDateString().replaceAll(".", "-");
+        const newDate = new Date().toLocaleDateString().replaceAll(".", "-");
+        setFormState(prev => ({ ...prev, Date: newDate }));
+        e.target.parentNode.firstChild.value = newDate;
     };
 
     const cancelSubmit = (e) => {
